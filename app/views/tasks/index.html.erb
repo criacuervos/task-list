@@ -1,0 +1,12 @@
+<h1>all of the shit i have to do!!!!!</h1>
+
+<section>
+  <h2>the data:</h2>
+  <ul>
+    <% @tasks.each do |task| %>
+    <li> Name: <%= task.name %> </li>
+    <li> Description: <%= task.description%> </li>
+    <li> Date of Completion: <%=task.completion_date%> </li>
+    <% end %>
+  </ul>
+</section>
