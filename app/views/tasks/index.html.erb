@@ -1,12 +1,13 @@
 <h1>all of the shit i have to do!!!!!</h1>
 
 <section>
-  <h2>the data:</h2>
+  <h2>here are your tasks:</h2>
   <ul>
     <% @tasks.each do |task| %>
-    <li> Name: <%= task.name %> </li>
-    <li> Description: <%= task.description%> </li>
-    <li> Date of Completion: <%=task.completion_date%> </li>
+    <li>
+      <%= link_to task.name, task_path( task.id ) %>:
+      <%= task.description %>
+    </li>
     <% end %>
   </ul>
 </section>

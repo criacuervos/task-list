@@ -33,7 +33,10 @@ class TasksController < ApplicationController
   end 
 
   def update
-    @task = Task.find_by(id: params[:id], name: params[:task][:name], description: params[:task][:description], completion_date: params[:task][:completion_date])
+    @task = Task.find_by(id: params[:id])
+    @task.name = params[:task][:name]
+    @task.description = params[:task][:description]
+    @task.completion_date = params[:task][:completion_date]
 
     if @task.save
       redirect_to task_path(@task.id)
