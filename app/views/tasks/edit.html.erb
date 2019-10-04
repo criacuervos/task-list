@@ -1,4 +1,4 @@
-<h2>Edit Task Form</h2>
+<h2>edit "<%=@task.description%>" task</h2>
 
 <%= form_with model: @task, class: "edit-task-form" do |f|%>
 
@@ -6,8 +6,8 @@
   <%= f.text_field :name %>
   <%= f.label :description %>
   <%= f.text_field :description %>
-  <%= f.label :completion_date %>
-  <%= f.text_field :completion_date %>
+  <%= f.label :completed %>
+  <%= f.text_field :completed %>
 
   <%= f.submit "Edit Task", class: "task-form-button" %>
 <% end %>

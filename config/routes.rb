@@ -14,5 +14,8 @@ Rails.application.routes.draw do
 
   patch '/tasks/:id', to: 'tasks#update'
 
+  delete '/tasks/:id', to: 'tasks#destroy'
+
+  put 'completed_task', to: 'tasks#complete', as: :complete_tasks
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

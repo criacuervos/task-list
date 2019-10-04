@@ -6,8 +6,12 @@
     <% @tasks.each do |task| %>
     <li>
       <%= link_to task.name, task_path( task.id ) %>:
-      <%= task.description %>
+      <%= task.description %> <%= link_to "(Delete)", task_path( task.id ), method: :delete, data: { confirm: "Really really delete?"} %>
     </li>
+
+    <%= check_box_tag(:completed) %>
+    <%= label_tag(:completed, "Completed?") %>
+
     <% end %>
   </ul>
 </section>
