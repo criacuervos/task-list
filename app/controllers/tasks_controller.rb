@@ -2,7 +2,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all  
-    @incompleted_tasks = Task.incomplete
+    @incomplete_tasks = Task.incomplete
     @completed_tasks = Task.completed 
   end 
 
@@ -45,7 +45,7 @@ class TasksController < ApplicationController
 
     @task.name = params[:task][:name]
     @task.description = params[:task][:description]
-    @task.complete = params[:task][:completed]
+    @task.completed = params[:task][:completed]
 
     if @task.save
       redirect_to task_path(@task.id)
@@ -65,5 +65,10 @@ class TasksController < ApplicationController
     end
   end 
 
+  def completed
+    Task.where(id: params[:task_id]).update_all(completed: true)
+
+    redirect_to tasks_path
+  end 
 
 end

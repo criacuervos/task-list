@@ -16,6 +16,6 @@ Rails.application.routes.draw do
 
   delete '/tasks/:id', to: 'tasks#destroy'
 
-  put 'completed_task', to: 'tasks#complete', as: :complete_tasks
+  put 'completed_task', to: 'tasks#completed', as: 'completed_tasks'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

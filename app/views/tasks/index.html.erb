@@ -2,16 +2,21 @@
 
 <section>
   <h2>here are your tasks:</h2>
+  <%= form_tag(completed_tasks_path, method: :put)  do %> 
+
   <ul>
     <% @tasks.each do |task| %>
     <li>
+      <%= check_box_tag 'task_id[]', task.id %>  
       <%= link_to task.name, task_path( task.id ) %>:
       <%= task.description %> <%= link_to "(Delete)", task_path( task.id ), method: :delete, data: { confirm: "Really really delete?"} %>
     </li>
 
-    <%= check_box_tag(:completed) %>
-    <%= label_tag(:completed, "Completed?") %>
+    <%= submit_tag 'Mark as Complete' %>
+
 
     <% end %>
   </ul>
+  <% end %>
+
 </section>

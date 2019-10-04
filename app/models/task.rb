@@ -1,10 +1,10 @@
 class Task < ApplicationRecord
-  
+  #not sure if right ????????
   def self.incomplete
-    where(completed: false).order('id DESC')
+    Task.find_by(completed: false)
   end 
   
   def self.completed
-    where(completed: true).order('id DESC')
+    where(completed: true)
   end 
 end
