@@ -24,7 +24,7 @@ class TasksController < ApplicationController
   end 
   
   def create
-    @task = Task.new( name: params[:task][:name], description: params[:task][:description], completed: params[:task][:completed] )
+    @task = Task.new(task_params)
     
     if @task.save
       redirect_to task_path(@task.id)
@@ -68,9 +68,16 @@ class TasksController < ApplicationController
   end 
   
   def completed
-    Task.where(id: params[:task_id]).update_all(completed: true)
-    
+    #HERE IS WHERE UPDATE TIME
+
+    Task.where(id: params[:task_id]).update_all(completed: DateTime.now)
     redirect_to tasks_path
+  end 
+  
+  private
+  
+  def task_params
+    return params.require(:task).permit(:name, :description, :completed)
   end 
   
 end

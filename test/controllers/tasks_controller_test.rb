@@ -73,7 +73,8 @@ describe TasksController do
 
       new_task = Task.find_by(name: task_hash[:task][:name])
       expect(new_task.description).must_equal task_hash[:task][:description]
-      expect(new_task.completed).must_equal task_hash[:task][:completed]
+      expect(new_task.completed).must_equal nil
+      #Need to change to 'assert_nil' but having trouble finding correct syntax and documentation for this
 
       must_respond_with :redirect
       must_redirect_to task_path(new_task.id)
@@ -92,41 +93,42 @@ describe TasksController do
 
   describe "update" do
     before do 
-      Task.create(name:"Chores", description:"Mop the floor", completed:"Before Sunday")
-    end 
+      Task.create(name:"Chores", description:"Mop the floor")
 
-    let (:new_task_hash) {
-      { 
+      @new_task_hash = {
         task: {
         name: "Homework",
         description: "Complete personal portfolio",
-        completed: "Before Monday",
+        completed: 10/6/19,
         },
-      }
     }
-    # Note:  If there was a way to fail to save the changes to a task, that would be a great thing to test.
-    it "can update an existing task" do
-      id = Task.first.id 
+    end 
+
+    it "can update an existing task successfully and redirects to home" do
+      existing_task = Task.first 
+      id = existing_task.id
+
+
       expect {
-        patch task_path(id), params: new_task_hash 
+        patch task_path(id), params: @new_task_hash 
       }.wont_change "Task.count"
 
-      must_respond_with :redirect 
+      expect(Task.find_by(id: existing_task.id).description).must_equal "Complete personal portfolio"
 
-      task = Task.find_by(id: id)
-      expect(task.name).must_equal new_task_hash[:task][:name]
-      expect(task.description).must_equal new_task_hash[:task][:description]
-      expect(task.completed).must_equal new_task_hash[:task][:completed]
+      must_redirect_to task_path(existing_task.id)
+
     end
 
     it "will redirect to the root page if given an invalid id" do
+      invalid_id = -1
+      expect
     end 
 
     it "will respond with not_found for invalid ids" do 
      id = -1
 
      expect {
-       patch task_path(id), params: new_task_hash
+       patch task_path(id), params: @new_task_hash
      }.wont_change "Task.count"
 
      must_respond_with :error

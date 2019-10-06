@@ -1,10 +1,10 @@
 class Task < ApplicationRecord
   
   def self.incomplete
-    return Task.where(completed: false)
+    return Task.where(completed: nil)
   end 
   
   def self.completed
-    return Task.where(completed: true)
+    return Task.where.not(completed: nil)
   end 
 end
