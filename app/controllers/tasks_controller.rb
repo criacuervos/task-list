@@ -29,19 +29,23 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to task_path(@task.id)
     else 
-      render new_task_path
+      render :action => :new
     end 
   end 
   
   def edit
     @task = Task.find_by(id: params[:id])  
+
+    if @task.nil?
+      redirect_to task_path
+    end 
   end 
   
   def update
     @task = Task.find_by(id: params[:id])
     
     if @task.nil?
-      head :internal_server_error
+      redirect_to root_path
       return
     end 
     
@@ -57,19 +61,14 @@ class TasksController < ApplicationController
   end 
   
   def destroy
-    task_to_delete_id = params[:id].to_i
-    
-    if task_to_delete_id.nil?
-      redirect_to tasks_path
-    else
-      Task.destroy(task_to_delete_id)
-      redirect_to task_path 
-    end
+    task = Task.find_by(id: params[:id])
+    task.destroy if task
+
+    redirect_to root_path
+
   end 
   
   def completed
-    #HERE IS WHERE UPDATE TIME
-
     Task.where(id: params[:task_id]).update_all(completed: DateTime.now)
     redirect_to tasks_path
   end 
