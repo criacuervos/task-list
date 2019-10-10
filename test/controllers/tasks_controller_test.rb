@@ -191,10 +191,15 @@ describe TasksController do
   describe "completed task" do
     it "completed changes from nil to current datetime, and redirects to home" do
       #arrange
-      test_task = Task.create(name: "Testing", description: "in process")
+      Task.create(name: "Testing", description: "in process", completed: nil)
+
+      input = {task_id: Task.all.last.id }
 
       #act
-      patch completed_task(id:test_task.id), params: {destination: "root"} 
+      put completed_tasks_path(input)
+
+      expect(Task.find_by(id: input[:task_id]).completed).wont_be_nil 
+
       #Keep getting an error message that says undefined method for 'completed_task.'
       #Stuck on how to test this method.. will try to ask for help and come in early Monday
 

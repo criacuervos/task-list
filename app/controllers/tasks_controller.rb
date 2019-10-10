@@ -67,6 +67,7 @@ class TasksController < ApplicationController
     redirect_to root_path
 
   end 
+
   
   def completed
     Task.where(id: params[:task_id]).update_all(completed: DateTime.now)
